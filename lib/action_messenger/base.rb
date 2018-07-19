@@ -37,12 +37,12 @@ module ActionMessenger
 
     # message to slack
     #
-    # @param channel [String] slack channel.
+    # @param [String] channel slack channel.
     #   ex. #general
-    # @param options [Hash] Slack API Request Options
+    # @param [Hash] options Slack API Request Options
     #  ex. https://api.slack.com/methods/chat.postMessage
     #
-    # ex. message_to_slack(channel: '#general', {text: 'sample'})
+    # ex. message_to_slack(channel: '#general', options: {text: 'sample'})
     def message_to_slack(channel:, options: {})
       @caller_method_name = caller[0][/`([^']*)'/, 1]
       options = apply_defaults(options)
@@ -51,6 +51,20 @@ module ActionMessenger
         message = slack_client.message(channel, options)
       end
       message
+    end
+
+    # upload file to slack
+    #
+    # @param [String] channel slack channel
+    # @param [Faraday::UploadIO] file upload file
+    #   ex. Faraday::UploadIO.new('/path/to/sample.jpg', 'image/jpg')
+    # @param [Hash] options
+    def upload_file_to_slack(channel: ,file: ,options: {})
+      upload_file = nil
+      ActiveSupport::Notifications.instrument('upload_file_to_slack.action_messenger', channel: channel) do
+        upload_file = slack_client.upload_file(channel, file, options)
+      end
+      upload_file
     end
 
 

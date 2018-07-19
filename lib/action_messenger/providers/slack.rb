@@ -24,6 +24,16 @@ module ActionMessenger
         client.chat_postMessage(options)
       end
 
+      # upload file to slack
+      # @param [String] channel
+      # @param [Faraday::UploadIO] file
+      # @param [Hash] options
+      #   ex. https://api.slack.com/methods/files.upload
+      def upload_file(channel, file, options)
+        options = {channel: channel, file: file}.merge(upload_file_option_to_api_hash(options))
+        client.files_upload(options)
+      end
+
       private
 
         # @param options [Hash] Slack API Request Options
@@ -31,6 +41,10 @@ module ActionMessenger
         def message_option_to_api_hash(options)
           raise ArgumentError('text is blank.') if options[:text].blank? && options[:attachments].blank?
 
+          options.delete_if { |_, v| v.nil? }
+        end
+
+        def upload_file_option_to_api_hash(options)
           options.delete_if { |_, v| v.nil? }
         end
     end

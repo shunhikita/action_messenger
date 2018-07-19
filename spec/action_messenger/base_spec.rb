@@ -42,6 +42,32 @@ RSpec.describe ActionMessenger::Base do
     it 'no exception occurs' do
       expect { base.message_to_slack(channel: 'foo') }.to_not raise_error
     end
+
+    it 'slack_client#message to be called' do
+      base.message_to_slack(channel: 'foo')
+      expect(base.send(:slack_client)).to have_received(:message).once
+    end
+
+  end
+
+  describe '#upload_file_to_slack' do
+    let(:base) { ActionMessenger::Base.new }
+    let(:upload_io_mock) { double('UploadIO') }
+
+    before do
+      slack_mock = double('Slack')
+      allow(slack_mock).to receive(:upload_file)
+      allow(base).to receive(:slack_client).and_return(slack_mock)
+    end
+
+    it 'no exception occurs' do
+      expect { base.upload_file_to_slack(channel: 'foo', file: upload_io_mock) }.to_not raise_error
+    end
+
+    it 'slack_client#upload_file to be called' do
+      base.upload_file_to_slack(channel: 'foo', file: upload_io_mock)
+      expect(base.send(:slack_client)).to have_received(:upload_file).once
+    end
   end
 
 end

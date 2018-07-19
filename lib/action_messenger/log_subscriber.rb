@@ -15,6 +15,12 @@ module ActionMessenger
       end
     end
 
+    def upload_file_to_slack(event)
+      info do
+        "#{Time.current} Upload File to Slack (#{event.duration.round(1)}ms) #{event.payload.as_json}"
+      end
+    end
+
     def logger
       ActionMessenger::Base.logger
     end
