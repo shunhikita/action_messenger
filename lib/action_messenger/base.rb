@@ -55,14 +55,15 @@ module ActionMessenger
 
     # upload file to slack
     #
-    # @param [String] channel slack channel
+    # @param [String] channels slack channel
+    #   ex. #general, #hoge
     # @param [Faraday::UploadIO] file upload file
     #   ex. Faraday::UploadIO.new('/path/to/sample.jpg', 'image/jpg')
     # @param [Hash] options
-    def upload_file_to_slack(channel: ,file: ,options: {})
+    def upload_file_to_slack(channels: ,file: ,options: {})
       upload_file = nil
-      ActiveSupport::Notifications.instrument('upload_file_to_slack.action_messenger', channel: channel) do
-        upload_file = slack_client.upload_file(channel, file, options)
+      ActiveSupport::Notifications.instrument('upload_file_to_slack.action_messenger', channels: channels) do
+        upload_file = slack_client.upload_file(channels, file, options)
       end
       upload_file
     end

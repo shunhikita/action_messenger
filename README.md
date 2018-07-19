@@ -72,11 +72,11 @@ class AccountMessenger < ActionMessenger::Base
 end
 ```
 
-## send messages
+## Send messages
 
 In the instance method of the class inheriting ActionMessenger::Base, the following methods can be used.
 
-### to Slack
+### Message to Slack
 
 ```rb
 # When the text option is specified, it becomes a message, and if not specified, the contents of the corresponding View template becomes a message.
@@ -85,6 +85,14 @@ message_to_slack(channel: '#sample', options: {text: 'hogehoge'})
 message_to_slack(channel: '#sample', options: {attachments: [{"pretext": "pre-hello", "text": "text-world"}]})
 # And other options.
 # -> https://api.slack.com/methods/chat.postMessage
+```
+
+### File upload to Slack
+
+```rb
+upload_file_to_slack(channels: '#general',file: Faraday::UploadIO.new('/path/to/sample.jpg', 'image/jpg'), options: {})
+# And other options.
+# -> https://api.slack.com/methods/files.upload
 ```
 
 ## Development

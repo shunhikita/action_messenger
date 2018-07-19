@@ -61,11 +61,11 @@ RSpec.describe ActionMessenger::Base do
     end
 
     it 'no exception occurs' do
-      expect { base.upload_file_to_slack(channel: 'foo', file: upload_io_mock) }.to_not raise_error
+      expect { base.upload_file_to_slack(channels: 'foo', file: upload_io_mock) }.to_not raise_error
     end
 
     it 'slack_client#upload_file to be called' do
-      base.upload_file_to_slack(channel: 'foo', file: upload_io_mock)
+      base.upload_file_to_slack(channels: 'foo', file: upload_io_mock)
       expect(base.send(:slack_client)).to have_received(:upload_file).once
     end
   end

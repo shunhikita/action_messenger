@@ -25,12 +25,13 @@ module ActionMessenger
       end
 
       # upload file to slack
-      # @param [String] channel
+      # @param [String] channels
+      #   ex. #sample, #hoge
       # @param [Faraday::UploadIO] file
       # @param [Hash] options
       #   ex. https://api.slack.com/methods/files.upload
-      def upload_file(channel, file, options)
-        options = {channel: channel, file: file}.merge(upload_file_option_to_api_hash(options))
+      def upload_file(channels, file, options)
+        options = {channels: channels, file: file}.merge(upload_file_option_to_api_hash(options))
         client.files_upload(options)
       end
 
