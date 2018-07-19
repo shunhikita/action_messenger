@@ -47,7 +47,7 @@ bundle exec rails generate messenger account registerd_notify removed_notify
 ## Usage
 
 ```rb
-class AccountMessenger < ActionMessenger::Base
+class AccountMessenger < ApplicationMessenger 
 
   def registered_notify(registered_accout_id)
     @account = Account.find(registered_account)
@@ -64,7 +64,7 @@ AccountMessenger.registerd_notify(@account.id).deliver_later! # for active job
 ### Handle exception
 
 ```rb
-class AccountMessenger < ActionMessenger::Base
+class AccountMessenger < ApplicationMessenger
 
   rescue_from Exception, with: -> { }
   rescue_from HogeError, with: -> { }
