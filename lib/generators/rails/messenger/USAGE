@@ -1,0 +1,15 @@
+Description:
+============
+    Stubs out a new messenger and its views. Passes the messenger name,
+    either CamelCased or under_scored, and an optional list of messengers as arguments.
+
+    This generates a messenger class in app/messengers and invokes your template
+    engine and test framework generators.
+
+Example:
+========
+    rails generate messenger Account registerd_notify
+
+    creates a Account messenger class, views, and test:
+        Messenger:  app/messengers/account_messenger.rb
+        Views:      app/views/account_messengers/registerd_notify.text.erb
