@@ -2,7 +2,7 @@
 
 Framework for delivering messages to Messenger. Currently only slack is supported.
 
-:warning: **This is highly experimental project. Current version is 0.1.0**
+:warning: **This is highly experimental project. Current version is 0.0.1**
 
 ## Installation
 
