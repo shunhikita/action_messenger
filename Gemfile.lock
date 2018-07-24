@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    action_messenger (0.0.1)
+    action_messenger (0.0.2)
       actionpack
       actionview
       activejob
