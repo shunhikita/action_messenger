@@ -2,8 +2,6 @@
 
 Framework for delivering messages to Messenger. Currently only slack is supported.
 
-:warning: **This is highly experimental project. Current version is 0.0.1**
-
 ## Installation
 
 Add this line to your application's Gemfile:
