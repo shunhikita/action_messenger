@@ -5,7 +5,7 @@ RSpec.describe ActionMessenger::MessageDelivery do
       let(:delivery) { ActionMessenger::MessageDelivery.new(ActionMessenger::Base, :sample, 'foo') }
 
       before do
-        ActionMessenger::Base.define_method :sample do |args| args end
+        ActionMessenger::Base.send(:define_method, :sample) do |args| args end
       end
 
       it 'no exception occurs' do
@@ -18,7 +18,7 @@ RSpec.describe ActionMessenger::MessageDelivery do
       let(:delivery) { ActionMessenger::MessageDelivery.new(ActionMessenger::Base, :sample) }
 
       before do
-        ActionMessenger::Base.define_method :sample do end
+        ActionMessenger::Base.send(:define_method, :sample) do end
       end
 
       it 'no exception occurs' do
@@ -33,7 +33,7 @@ RSpec.describe ActionMessenger::MessageDelivery do
     let(:delivery) { ActionMessenger::MessageDelivery.new(ActionMessenger::Base.new, :sample) }
 
     before do
-      ActionMessenger::Base.define_method :sample do end
+      ActionMessenger::Base.send(:define_method, :sample) do end
     end
 
     it 'no exception occurs' do

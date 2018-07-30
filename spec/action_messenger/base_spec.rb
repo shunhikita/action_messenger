@@ -48,6 +48,10 @@ RSpec.describe ActionMessenger::Base do
       expect(base.send(:slack_client)).to have_received(:message).once
     end
 
+    it 'Logs are stored in delivery' do
+      expect{base.message_to_slack(channel: 'foo')}.to change{base.deliveries.count}.from(0).to(1)
+    end
+
   end
 
   describe '#upload_file_to_slack' do
@@ -67,6 +71,10 @@ RSpec.describe ActionMessenger::Base do
     it 'slack_client#upload_file to be called' do
       base.upload_file_to_slack(channels: 'foo', file: upload_io_mock)
       expect(base.send(:slack_client)).to have_received(:upload_file).once
+    end
+
+    it 'Logs are stored in delivery' do
+      expect{base.upload_file_to_slack(channels: 'foo', file: upload_io_mock)}.to change{base.deliveries.count}.from(0).to(1)
     end
   end
 

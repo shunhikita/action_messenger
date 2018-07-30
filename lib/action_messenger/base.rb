@@ -32,8 +32,13 @@ module ActionMessenger
 
     end # end class << self
 
+    attr_reader :caller_method_name, :deliveries
 
-    attr_reader :caller_method_name
+    DeliveryLog = Struct.new(:method, :channels, :result)
+
+    def initialize
+      @deliveries = []
+    end
 
     # message to slack
     #
@@ -51,6 +56,8 @@ module ActionMessenger
         message = slack_client.message(channel, options)
       end
       message
+    ensure
+     self.deliveries << DeliveryLog.new(__method__, channel, message)
     end
 
     # upload file to slack
@@ -66,6 +73,8 @@ module ActionMessenger
         upload_file = slack_client.upload_file(channels, file, options)
       end
       upload_file
+    ensure
+      self.deliveries << DeliveryLog.new(__method__, channels, upload_file)
     end
 
 
