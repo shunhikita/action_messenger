@@ -93,6 +93,20 @@ upload_file_to_slack(channels: '#general',file: Faraday::UploadIO.new('/path/to/
 # -> https://api.slack.com/methods/files.upload
 ```
 
+## Get delivery logs
+
+```rb
+class AccouyntMessenger < ApplicationMessenger
+  def notify
+    message_to_slack(channel: '#sample', options: {text: 'hoge'})
+  end
+end
+message_delivery = AccountMessenger.notify
+notify.deliver_now!
+p message_delivery.messenger.deliveries
+# => [#<struct ActionMessenger::Base::DeliveryLog method=:message_to_slack, channels="#sample", result=#<Slack::Messages::Message channel="xxxxx" message=#<Slack::Messages::Message bot_id="xxxxx" subtype="bot_message" text="hoge" ts="xxxxx" type="message" username="Slack API Tester"> ok=true ts="xxxxx">>]
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
