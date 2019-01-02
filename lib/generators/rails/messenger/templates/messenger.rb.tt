@@ -1,11 +1,12 @@
 <% module_namespacing do -%>
-class <%= class_name %>Messenger < ActionMessenger::Base
+class <%= class_name %>Messenger < ApplicationMessenger
 <% actions.each do |action| -%>
 
   def <%= action %>
     @greeting = "Hi"
     message_to_slack(channel: '#your_channel')
   end
+
 <% end -%>
 end
 <% end -%>
